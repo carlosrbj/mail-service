@@ -1,10 +1,8 @@
 package com.viasoft.mail_service;
 
 import com.viasoft.mail_service.model.EmailAwsDTO;
-import com.viasoft.mail_service.model.EmailOciDTO;
 import com.viasoft.mail_service.model.EmailRequestDTO;
-import com.viasoft.mail_service.service.AwsEmailService;
-import com.viasoft.mail_service.service.OciEmailService;
+import com.viasoft.mail_service.service.AwsEmailProcessor;
 import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class AwsEmailServiceTest {
+class AwsEmailProcessorTest {
 
     @Mock
     private Validator validator;
 
     @InjectMocks
-    private AwsEmailService awsEmailService;
+    private AwsEmailProcessor awsEmailProcessor;
 
     @BeforeEach
     public void setUp() {
@@ -33,7 +31,7 @@ class AwsEmailServiceTest {
     }
 
     @Test
-    void testSend_ValidEmailRequest_NoExceptionThrown() {
+    void testSend_ValidEmailRequest() {
         EmailRequestDTO emailRequest = new EmailRequestDTO();
         emailRequest.setRecipient("recipient@example.com");
         emailRequest.setRecipientName("Recipient Name");
@@ -46,7 +44,7 @@ class AwsEmailServiceTest {
         when(validator.validate(emailAwsDTO)).thenReturn(Set.of());
 
         try {
-            awsEmailService.send(emailRequest);
+            awsEmailProcessor.send(emailRequest);
         } catch (Exception e) {
             assertEquals("No exceptions should be thrown", e.getMessage());
         }
@@ -63,7 +61,7 @@ class AwsEmailServiceTest {
         emailRequest.setContent("Test Content");
 
         try {
-            awsEmailService.send(emailRequest);
+            awsEmailProcessor.send(emailRequest);
         } catch (Exception e) {
             assertEquals("Validation error: recipientEmail must be a well-formed email address", e.getMessage());
         }

@@ -3,7 +3,7 @@ package com.viasoft.mail_service.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viasoft.mail_service.Utils.Utils;
 import com.viasoft.mail_service.adapter.EmailAdapter;
-import com.viasoft.mail_service.model.EmailAwsDTO;
+import com.viasoft.mail_service.model.EmailOciDTO;
 import com.viasoft.mail_service.model.EmailRequestDTO;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,18 +11,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AwsEmailService implements EmailAdapter {
+public class OciEmailProcessor implements EmailAdapter {
 
     @Override
     public ResponseEntity<String> send(EmailRequestDTO emailRequest) throws JsonProcessingException {
-        logger.info("Request with AWS body received: " + Utils.serializeObject(emailRequest));
+        logger.info("Request with Oracle Cloud body received: " + Utils.serializeObject(emailRequest));
         StringBuilder message;
         try {
-            EmailAwsDTO emailAwsDTO = Utils.validateAwsDto(emailRequest);
+            EmailOciDTO emailOciDTO = Utils.validateOciDto(emailRequest);
 
-            // TODO: implementar lógica AWS
+            // TODO: implementar lógica Oracle Cloud
 
-            message = new StringBuilder("Email successfully sent by AWS: " + Utils.serializeObject(emailAwsDTO));
+            message = new StringBuilder("Email successfully sent by Oracle Cloud: " + Utils.serializeObject(emailOciDTO));
             logger.info(message);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (ConstraintViolationException e) {

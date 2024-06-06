@@ -1,7 +1,7 @@
 package com.viasoft.mail_service.adapter;
 
-import com.viasoft.mail_service.service.AwsEmailService;
-import com.viasoft.mail_service.service.OciEmailService;
+import com.viasoft.mail_service.service.AwsEmailProcessor;
+import com.viasoft.mail_service.service.OciEmailProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,19 +14,19 @@ public class ServiceAdapter {
     @Value("${mail.integracao}")
     private String mailIntegration;
 
-    private final AwsEmailService awsEmailService;
-    private final OciEmailService ociEmailService;
+    private final AwsEmailProcessor awsEmailProcessor;
+    private final OciEmailProcessor ociEmailProcessor;
 
     @Autowired
-    public ServiceAdapter(AwsEmailService awsEmailService, OciEmailService ociEmailService) {
-        this.awsEmailService = awsEmailService;
-        this.ociEmailService = ociEmailService;
+    public ServiceAdapter(AwsEmailProcessor awsEmailProcessor, OciEmailProcessor ociEmailProcessor) {
+        this.awsEmailProcessor = awsEmailProcessor;
+        this.ociEmailProcessor = ociEmailProcessor;
     }
 
     public EmailAdapter getEmailService() {
         return switch (mailIntegration.toUpperCase()) {
-            case AWS -> awsEmailService;
-            case OCI -> ociEmailService;
+            case AWS -> awsEmailProcessor;
+            case OCI -> ociEmailProcessor;
             default -> throw new IllegalArgumentException("Invalid mail integration configuration: " + mailIntegration);
         };
     }
