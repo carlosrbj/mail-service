@@ -14,6 +14,7 @@ public class EmailOciDTO implements Serializable {
     private String recipientEmail;
 
     @Size(max = 50)
+    @NotBlank
     private String recipientName;
 
     @Email
@@ -22,9 +23,11 @@ public class EmailOciDTO implements Serializable {
     private String senderEmail;
 
     @Size(max = 100)
+    @NotBlank
     private String subject;
 
     @Size(max = 250)
+    @NotBlank
     private String body;
 
     public EmailOciDTO(EmailRequestDTO request) {
@@ -43,11 +46,11 @@ public class EmailOciDTO implements Serializable {
         this.recipientEmail = recipientEmail;
     }
 
-    public @Size(max = 50) String getRecipientName() {
+    public @Size(max = 50) @NotBlank String getRecipientName() {
         return recipientName;
     }
 
-    public void setRecipientName(@Size(max = 50) String recipientName) {
+    public void setRecipientName(@Size(max = 50) @NotBlank String recipientName) {
         this.recipientName = recipientName;
     }
 
@@ -59,19 +62,19 @@ public class EmailOciDTO implements Serializable {
         this.senderEmail = senderEmail;
     }
 
-    public @Size(max = 100) String getSubject() {
+    public @Size(max = 100) @NotBlank String getSubject() {
         return subject;
     }
 
-    public void setSubject(@Size(max = 100) String subject) {
+    public void setSubject(@Size(max = 100) @NotBlank String subject) {
         this.subject = subject;
     }
 
-    public @Size(max = 250) String getBody() {
+    public @Size(max = 250) @NotBlank String getBody() {
         return body;
     }
 
-    public void setBody(@Size(max = 250) String body) {
+    public void setBody(@Size(max = 250) @NotBlank String body) {
         this.body = body;
     }
 }

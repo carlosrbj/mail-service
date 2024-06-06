@@ -13,6 +13,7 @@ public class EmailAwsDTO implements Serializable {
     private String recipient;
 
     @Size(max = 60)
+    @NotBlank
     private String recipientName;
 
     @Email
@@ -21,9 +22,11 @@ public class EmailAwsDTO implements Serializable {
     private String sender;
 
     @Size(max = 120)
+    @NotBlank
     private String subject;
 
     @Size(max = 256)
+    @NotBlank
     private String content;
 
     public EmailAwsDTO(EmailRequestDTO request) {
@@ -42,11 +45,11 @@ public class EmailAwsDTO implements Serializable {
         this.recipient = recipient;
     }
 
-    public @Size(max = 60) String getRecipientName() {
+    public @Size(max = 60) @NotBlank String getRecipientName() {
         return recipientName;
     }
 
-    public void setRecipientName(@Size(max = 60) String recipientName) {
+    public void setRecipientName(@Size(max = 60) @NotBlank String recipientName) {
         this.recipientName = recipientName;
     }
 
@@ -58,19 +61,19 @@ public class EmailAwsDTO implements Serializable {
         this.sender = sender;
     }
 
-    public @Size(max = 120) String getSubject() {
+    public @Size(max = 120) @NotBlank String getSubject() {
         return subject;
     }
 
-    public void setSubject(@Size(max = 120) String subject) {
+    public void setSubject(@Size(max = 120) @NotBlank String subject) {
         this.subject = subject;
     }
 
-    public @Size(max = 256) String getContent() {
+    public @Size(max = 256) @NotBlank String getContent() {
         return content;
     }
 
-    public void setContent(@Size(max = 256) String content) {
+    public void setContent(@Size(max = 256) @NotBlank String content) {
         this.content = content;
     }
 }
