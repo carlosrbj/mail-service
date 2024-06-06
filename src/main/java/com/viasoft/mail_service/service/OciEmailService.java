@@ -15,14 +15,14 @@ public class OciEmailService implements EmailAdapter {
 
     @Override
     public ResponseEntity<String> send(EmailRequestDTO emailRequest) throws JsonProcessingException {
-        logger.info("Body with request received: " + Utils.serializeObject(emailRequest));
+        logger.info("Request with Oracle Cloud body received: " + Utils.serializeObject(emailRequest));
         StringBuilder message;
         try {
             EmailOciDTO emailOciDTO = Utils.validateOciDto(emailRequest);
 
             // TODO: implementar lógica Oracle Cloud
 
-            message = new StringBuilder("Sending the mail through Oracle Cloud: " + Utils.serializeObject(emailOciDTO));
+            message = new StringBuilder("Email successfully sent by Oracle Cloud: " + Utils.serializeObject(emailOciDTO));
             logger.info(message);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (ConstraintViolationException e) {

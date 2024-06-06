@@ -15,14 +15,14 @@ public class AwsEmailService implements EmailAdapter {
 
     @Override
     public ResponseEntity<String> send(EmailRequestDTO emailRequest) throws JsonProcessingException {
-        logger.info("Body with request received: " + Utils.serializeObject(emailRequest));
+        logger.info("Request with AWS body received: " + Utils.serializeObject(emailRequest));
         StringBuilder message;
         try {
             EmailAwsDTO emailAwsDTO = Utils.validateAwsDto(emailRequest);
 
             // TODO: implementar lógica AWS
 
-            message = new StringBuilder("Sending the mail through AWS. " + Utils.serializeObject(emailAwsDTO));
+            message = new StringBuilder("Email successfully sent by AWS: " + Utils.serializeObject(emailAwsDTO));
             logger.info(message);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (ConstraintViolationException e) {

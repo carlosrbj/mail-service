@@ -30,6 +30,7 @@ public class Utils {
 
 
     public static EmailAwsDTO validateAwsDto(EmailRequestDTO emailRequest) {
+        logger.info("Validating data...");
         EmailAwsDTO emailAwsDTO = new EmailAwsDTO(emailRequest);
 
         Set<ConstraintViolation<EmailAwsDTO>> violations = validator.validate(emailAwsDTO);
@@ -42,10 +43,12 @@ public class Utils {
             throw new ConstraintViolationException(violations);
         }
 
+        logger.info("Valid data");
         return emailAwsDTO;
     }
 
     public static EmailOciDTO validateOciDto(EmailRequestDTO emailRequest) {
+        logger.info("Validating data...");
         EmailOciDTO emailOciDTO = new EmailOciDTO(emailRequest);
 
         Set<ConstraintViolation<EmailOciDTO>> violations = validator.validate(emailOciDTO);
@@ -57,6 +60,7 @@ public class Utils {
             throw new ConstraintViolationException(violations);
         }
 
+        logger.info("Valid data");
         return emailOciDTO;
     }
 

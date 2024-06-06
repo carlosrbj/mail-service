@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailServiceFactory {
+public class ServiceAdapter {
     private static final String AWS = "AWS";
     private static final String OCI = "OCI";
 
@@ -18,7 +18,7 @@ public class EmailServiceFactory {
     private final OciEmailService ociEmailService;
 
     @Autowired
-    public EmailServiceFactory(AwsEmailService awsEmailService, OciEmailService ociEmailService) {
+    public ServiceAdapter(AwsEmailService awsEmailService, OciEmailService ociEmailService) {
         this.awsEmailService = awsEmailService;
         this.ociEmailService = ociEmailService;
     }
