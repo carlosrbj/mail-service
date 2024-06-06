@@ -4,7 +4,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class EmailAwsDTO{
+import java.io.Serializable;
+
+public class EmailAwsDTO implements Serializable {
     @Email
     @NotBlank
     @Size(max = 45)

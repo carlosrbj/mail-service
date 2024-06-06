@@ -1,20 +1,13 @@
 package com.viasoft.mail_service.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 
-public class EmailRequestDTO{
-    @Email
-    @NotBlank
+import java.io.Serializable;
+
+public class EmailRequestDTO implements Serializable {
     private String recipient;
-    @NotBlank
     private String recipientName;
-    @Email
-    @NotBlank
     private String sender;
-    @NotBlank
     private String subject;
-    @NotBlank
     private String content;
 
     public String getRecipient() {

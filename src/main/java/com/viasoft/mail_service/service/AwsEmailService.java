@@ -1,40 +1,28 @@
 package com.viasoft.mail_service.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viasoft.mail_service.Utils.Utils;
 import com.viasoft.mail_service.adapter.EmailAdapter;
 import com.viasoft.mail_service.model.EmailAwsDTO;
 import com.viasoft.mail_service.model.EmailRequestDTO;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 @Service
 public class AwsEmailService implements EmailAdapter {
 
-    private final Validator validator;
-
-    @Autowired
-    public AwsEmailService(Validator validator) {
-        this.validator = validator;
-    }
-
     @Override
-    public ResponseEntity<String> send(EmailRequestDTO emailRequest) {
-        logger.info("Body with request received: " + emailRequest.toString());
+    public ResponseEntity<String> send(EmailRequestDTO emailRequest) throws JsonProcessingException {
+        logger.info("Body with request received: " + Utils.serializeObject(emailRequest));
         StringBuilder message;
         try {
-            EmailAwsDTO emailAwsDTO = new EmailAwsDTO(emailRequest);
-            validateDto(emailAwsDTO);
+            EmailAwsDTO emailAwsDTO = Utils.validateAwsDto(emailRequest);
 
             // TODO: implementar lógica AWS
 
-            message = new StringBuilder("Sending the mail through AWS");
+            message = new StringBuilder("Sending the mail through AWS. " + Utils.serializeObject(emailAwsDTO));
             logger.info(message);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (ConstraintViolationException e) {
@@ -48,15 +36,4 @@ public class AwsEmailService implements EmailAdapter {
         }
     }
 
-    private void validateDto(EmailAwsDTO emailAwsDTO) {
-        Set<ConstraintViolation<EmailAwsDTO>> violations = validator.validate(emailAwsDTO);
-
-        if (!violations.isEmpty()) {
-            StringBuilder builder = new StringBuilder();
-            for (ConstraintViolation<EmailAwsDTO> violation : violations) {
-                builder.append(violation.getMessage()).append("\n");
-            }
-            throw new ConstraintViolationException(violations);
-        }
-    }
 }

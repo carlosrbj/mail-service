@@ -1,5 +1,6 @@
 package com.viasoft.mail_service.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viasoft.mail_service.adapter.EmailServiceFactory;
 import com.viasoft.mail_service.model.EmailRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class EmailService {
         this.emailServiceFactory = emailServiceFactory;
     }
 
-    public ResponseEntity<String> sendEmail(EmailRequestDTO emailRequest){
+    public ResponseEntity<String> sendEmail(EmailRequestDTO emailRequest) throws JsonProcessingException {
         return emailServiceFactory.getEmailService().send(emailRequest);
     }
 }

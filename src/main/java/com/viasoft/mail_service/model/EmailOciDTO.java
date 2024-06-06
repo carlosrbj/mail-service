@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class EmailOciDTO{
+import java.io.Serializable;
+
+public class EmailOciDTO implements Serializable {
     @Email
     @NotBlank
     @Size(max = 40)

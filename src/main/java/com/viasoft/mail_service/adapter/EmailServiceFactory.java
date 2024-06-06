@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailServiceFactory {
+    private static final String AWS = "AWS";
+    private static final String OCI = "OCI";
 
     @Value("${mail.integracao}")
     private String mailIntegration;
@@ -23,8 +25,8 @@ public class EmailServiceFactory {
 
     public EmailAdapter getEmailService() {
         return switch (mailIntegration.toUpperCase()) {
-            case "AWS" -> awsEmailService;
-            case "OCI" -> ociEmailService;
+            case AWS -> awsEmailService;
+            case OCI -> ociEmailService;
             default -> throw new IllegalArgumentException("Invalid mail integration configuration: " + mailIntegration);
         };
     }

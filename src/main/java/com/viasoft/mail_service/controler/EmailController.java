@@ -1,5 +1,6 @@
 package com.viasoft.mail_service.controler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.viasoft.mail_service.model.EmailRequestDTO;
 import com.viasoft.mail_service.service.EmailService;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ public class EmailController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendEmail(@Valid @RequestBody EmailRequestDTO emailRequest){
+    public ResponseEntity<String> sendEmail(@Valid @RequestBody EmailRequestDTO emailRequest) throws JsonProcessingException {
         return emailService.sendEmail(emailRequest);
     }
 }
